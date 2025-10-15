@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>{{name}}'s WatchList</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
 </head>
 <body>
-    <h2>{{name}}'s WatchList</h2>
+    <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
+    {{name}}'s WatchList
     <p>{{movies|length}} Titles</p>
-    <ul>
+    <ul class="movie-list">
         {% for movie in movies %}  {# 迭代 movies 变量 #}
         <li>{{ movie.title }} - {{ movie.year }}</li>  {# 等同于 movie['title'] #}
         {% endfor %}  {# 使用 endfor 标签结束 for 语句 #}
     </ul>
+    <img alt="Walking Totoro" class="totoro" src="{{ url_for('static',filename='images/totoro.gif') }}">
     <footer>
         <small>&copy; 2025 <a href="http://helloflask.com/book/3">HelloFlask</a></small>
     </footer>
