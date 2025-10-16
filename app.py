@@ -74,7 +74,17 @@ def index():
     user=db.session.execute(select(User)).scalar()
     movies=db.session.execute(select(Movie)).scalars().all()
     return render_template('index.html', user=user, movies=movies)
+from sqlalchemy import select
 
+@app.context_processor
+def inject_user():  # 函数名可以随意修改
+    user = db.session.execute(select(User)).scalar()
+    return dict(user=user)  # 需要返回字典，等同于 return {'user': user}
+#这个函数返回的变量（以字典键值对的形式）将会统一注入到每一个模板的上下文环境中，因此可以直接在模板中使用。
+@app.errorhandler(404)
+def page_not_found(error):
+    #user=db.session.execute(select(User)).scalar()
+    return render_template('404.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
